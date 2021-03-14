@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <title>Simple Example</title>
+    <script src="https://threejs.org/build/three.min.js"></script>
+    <style>
+        body, html {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+</body>
+<script type="module">
+    import SceneRenderer from './index.js';
+
+    const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 5000);
+    camera.position.set(0, 5, 20);
+    camera.lookAt(0, 0, 0);
+
+    const scr = new SceneRenderer({ camera });
+    const { scene, renderer } = scr;
+
+    // Lights
+    const ambient = new THREE.AmbientLight(0xffffff);
+    scene.add(ambient);
+
+    const light = new THREE.DirectionalLight(0xffffff, 12);
+    light.rotation.x = -Math.PI / 9;
+    scene.add(light);
+
+    const box = new THREE.Mesh(
+        new THREE.BoxGeometry(4, 4, 4),
+        new THREE.MeshStandardMaterial({ color: 'red' })
+    );
+    scene.add(box);
+
+    scr.on('render', () => box.rotation.y -= 0.002);
+    scr.startRender();
+</script>
+
+</html>

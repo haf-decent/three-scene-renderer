@@ -1,0 +1,11 @@
+{
+  "name": "three_scr",
+  "version": "1.0.0",
+  "description": "Scene/Camera/Renderer for threejs scenes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ryan Hafner (r.hafner20@gmail.com)",
+  "license": "MIT"
+}

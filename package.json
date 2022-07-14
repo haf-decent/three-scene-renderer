@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/haf-decent/three_scr.git"
+    "url": "git+https://github.com/haf-decent/three-scene-renderer.git"
   },
   "keywords": [
     "three",
@@ -35,7 +35,7 @@
     "pipeline"
   ],
   "bugs": {
-    "url": "https://github.com/haf-decent/three_scr/issues"
+    "url": "https://github.com/haf-decent/three-scene-renderer/issues"
   },
-  "homepage": "https://github.com/haf-decent/three_scr#readme"
+  "homepage": "https://github.com/haf-decent/three-scene-renderer#readme"
 }

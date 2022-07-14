@@ -1,11 +1,41 @@
 {
-  "name": "three_scr",
+  "name": "three-scene-renderer",
   "version": "1.0.0",
   "description": "Scene/Camera/Renderer for threejs scenes",
-  "main": "index.js",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm run build-cjs && npm run build-esm",
+    "build-cjs": "tsc --module commonjs --outDir dist/cjs",
+    "build-esm": "tsc"
   },
   "author": "Ryan Hafner (r.hafner20@gmail.com)",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/three": "^0.141.0",
+    "typescript": "^4.7.4"
+  },
+  "peerDependencies": {
+    "three": "^0.142.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/haf-decent/three-scene-renderer.git"
+  },
+  "keywords": [
+    "three",
+    "threejs",
+    "render",
+    "renderer",
+    "rendering",
+    "postprocessing",
+    "bloom",
+    "glow",
+    "pipeline"
+  ],
+  "bugs": {
+    "url": "https://github.com/haf-decent/three-scene-renderer/issues"
+  },
+  "homepage": "https://github.com/haf-decent/three-scene-renderer#readme"
 }

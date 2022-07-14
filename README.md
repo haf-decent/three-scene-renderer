@@ -1,7 +1,7 @@
 # three-scene-renderer
 Helper class for initializing and managing THREEjs scenes & render pipelines.
 
-The goal is to create a simplified interface to THREE by taking care of some of the boilerplate code that most THREE scene's end up using, as well as creating some helper methods for rendering and events.
+The goal is to create a simplified interface to THREE by taking care of some of the boilerplate code that most THREE scenes end up using, as well as creating some helper methods for rendering and events.
 
 ## Installation
 ```bash
@@ -21,13 +21,13 @@ camera.lookAt(0, 0, 0);
 
 // S: Scene, C: Clock, R: Renderer
 const scr = new SceneRenderer({
-	embedded: false,             // (default) whether renderer.domElement is embedded in parent element
-	width: window.innerWidth,    // (default) width of renderer.domElement
-	height: window.innerHeight,  // (default) height of renderer.domElement
-	scene: {},                   // (default) autoUpdate, background, and environment properties
-	clock: { autoStart: true },  // (default)
-	renderer: {},                // (default) any valid WebGLRendererParameters
-	camera                       // Orthographic or Perspective Camera instance
+  embedded: false,             // (default) whether renderer.domElement is embedded in parent element
+  width: window.innerWidth,    // (default) width of renderer.domElement
+  height: window.innerHeight,  // (default) height of renderer.domElement
+  scene: {},                   // (default) autoUpdate, background, and environment properties
+  clock: { autoStart: true },  // (default)
+  renderer: {},                // (default) any valid WebGLRendererParameters
+  camera                       // (required) Orthographic or Perspective Camera instance
 });
 
 const box = new Mesh(...);
@@ -54,10 +54,10 @@ The `on`/`off` methods add/remove handlers to be run during "render" and "resize
 const scr = new SceneRenderer({ camera });
 
 const [ unsubscribeControls, unsubscribeCubeCamera ] = scr.on("render", [
-	() => controls.update(),
-	function updateCubeCamera() {
-		cubeCamera.update(scr.renderer, scr.scene)
-	}
+  () => controls.update(),
+  function updateCubeCamera() {
+    cubeCamera.update(scr.renderer, scr.scene)
+  }
 ]);
 const unsubscribeComposerResizer = scr.on("resize", ({ width, height }) => composer.setSize(width, height));
 
@@ -88,13 +88,13 @@ const container = document.getElementById("my-container");
 const canvas = container.querySelector("canvas");
 
 const scr = new SceneRenderer({
-	camera,
-	embedded: true,
-	renderer: { canvas } // the WebGLRenderer will be created using this embedded canvas
+  camera,
+  embedded: true,
+  renderer: { canvas } // the WebGLRenderer will be created using this embedded canvas
 });
 
 window.addEventListener("resize", () => {
-	const { width, height } = container.getBoundingClientRect();
-	scr.resize({ width, height });
+  const { width, height } = container.getBoundingClientRect();
+  scr.resize({ width, height });
 });
 ```

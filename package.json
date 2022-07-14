@@ -26,7 +26,13 @@
   "keywords": [
     "three",
     "threejs",
-    "renderer"
+    "render",
+    "renderer",
+    "rendering",
+    "postprocessing",
+    "bloom",
+    "glow",
+    "pipeline"
   ],
   "bugs": {
     "url": "https://github.com/haf-decent/three_scr/issues"

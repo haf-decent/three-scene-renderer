@@ -98,3 +98,10 @@ window.addEventListener("resize", () => {
   scr.resize({ width, height });
 });
 ```
+
+## Examples
+This package comes with two example experiences. To run these examples, `npm install` in the root folder and then run `webpack` in the examples/simple or examples/complex folder to generate the corresponding bundle. You can then host the html locally using vscode's Live Server Extension, for example.
+
+The simple example simply animates a box using `SceneRenderer.on("render", callback)`;
+
+The complex example shows how the `SceneRenderer` can be used to conveniently switch between render pipelines - in this case an `EffectComposer` using `UnrealBloomPass` and a mirrored material using a `CubeCamera`.

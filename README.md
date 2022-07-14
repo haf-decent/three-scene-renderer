@@ -45,19 +45,26 @@ If set, this function will be run __instead__ of the default `WebGLRenderer.rend
 
 ## Methods
 
-### on
-The `on` method adds handlers to be run during "render" and "resize" events. This is useful for updating things like controls or `CubeCamera`s, or automatically resizing an `EffectComposer`.
+### on/off
+The `on`/`off` methods add/remove handlers to be run during "render" and "resize" events. This is useful for updating things like controls or `CubeCamera`s, or automatically resizing an `EffectComposer`. For `on`, you can pass a single callback or an array of callbacks. The `on` function returns a corresponding function or array of functions for unsubscribing events - equivalent to calling `scr.off(event, callback)`. `off` only accepts individual handler functions.
 
 ```js
 ...
 
 const scr = new SceneRenderer({ camera });
 
-scr.on("render", [
+const [ unsubscribeControls, unsubscribeCubeCamera ] = scr.on("render", [
 	() => controls.update(),
-	() => cubeCamera.update(scr.renderer, scr.scene)
+	function updateCubeCamera() {
+		cubeCamera.update(scr.renderer, scr.scene)
+	}
 ]);
-scr.on("resize", ({ width, height }) => composer.setSize(width, height));
+const unsubscribeComposerResizer = scr.on("resize", ({ width, height }) => composer.setSize(width, height));
+
+// remove "() => cubeCamera.update(scr.renderer, scr.scene)"
+setTimeout(unsubscribeCubeCamera, 5000);
+// equivalent to
+// setTimeout(() => scr.off("render", updateCubeCamera), 5000);
 ```
 
 ### Render Methods
@@ -69,7 +76,7 @@ Begins rendering the scene continuously, until `stopRender` is called.
 Stops rendering the scene.
 
 #### renderOnce
-Convenience function for rendering a single frame. Useful if you have a relatively static scene that might only need to update when `OrbitControls` are active, for example.
+Convenience function for rendering a single frame. Useful if you have a relatively static scene that might only need to update on some user interaction, for example.
 
 ### resize
 In general, this should only be called manually if the scene is embedded and the parent container resizes.

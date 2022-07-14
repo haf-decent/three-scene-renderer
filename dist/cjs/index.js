@@ -36,21 +36,47 @@ var SceneRenderer = /** @class */ (function () {
         }
     }
     SceneRenderer.prototype.on = function (event, cb) {
+        var _this = this;
         switch (event) {
             case "render":
-                if (Array.isArray(cb))
+                if (Array.isArray(cb)) {
                     Array.prototype.push.apply(this.onRender, cb);
-                else
+                    return cb.map(function (callback) { return function () { return _this.off(event, callback); }; });
+                }
+                else {
                     this.onRender.push(cb);
-                break;
+                    return function () { return _this.off(event, cb); };
+                }
             case "resize":
-                if (Array.isArray(cb))
+                if (Array.isArray(cb)) {
                     Array.prototype.push.apply(this.onResize, cb);
-                else
+                    return cb.map(function (callback) { return function () { return _this.off(event, callback); }; });
+                }
+                else {
                     this.onResize.push(cb);
-                break;
+                    return function () { return _this.off(event, cb); };
+                }
             default:
                 console.warn("Cannot add listener, event '".concat(event, "' does not exist."));
+                return null;
+        }
+    };
+    SceneRenderer.prototype.off = function (event, cb) {
+        var i;
+        switch (event) {
+            case "render":
+                i = this.onRender.indexOf(cb);
+                if (i > -1)
+                    this.onRender.splice(i, 1);
+                else
+                    console.warn("Cannot find listener to remove");
+                break;
+            case "resize":
+                i = this.onResize.indexOf(cb);
+                if (i > -1)
+                    this.onRender.splice(i, 1);
+                else
+                    console.warn("Cannot find listener to remove");
                 break;
         }
     };

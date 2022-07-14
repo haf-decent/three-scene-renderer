@@ -38,7 +38,8 @@ export declare class SceneRenderer {
     shouldRender: boolean;
     replaceRender: (() => void) | null;
     constructor({ embedded, width, height, scene, clock: { autoStart }, renderer, camera }: Props);
-    on(event: "render" | "resize", cb: RenderListener | RenderListener[] | ResizeListener | RenderListener[]): void;
+    on(event: "render" | "resize", cb: RenderListener | RenderListener[] | ResizeListener | RenderListener[]): (() => void)[] | (() => void) | null;
+    off(event: "render" | "resize", cb: RenderListener | ResizeListener): void;
     startRender(): void;
     render(): void;
     renderOnce(): void;

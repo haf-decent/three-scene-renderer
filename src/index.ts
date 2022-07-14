@@ -81,15 +81,41 @@ export class SceneRenderer {
 	on(event: "render" | "resize", cb: RenderListener | RenderListener[] | ResizeListener | RenderListener[]) {
 		switch(event) {
 			case "render":
-				if (Array.isArray(cb)) Array.prototype.push.apply(this.onRender, cb);
-				else this.onRender.push(cb as RenderListener);
-				break;
+				if (Array.isArray(cb)) {
+					Array.prototype.push.apply(this.onRender, cb);
+					return cb.map(callback => () => this.off(event, callback));
+				}
+				else {
+					this.onRender.push(cb as RenderListener);
+					return () => this.off(event, cb);
+				}
 			case "resize":
-				if (Array.isArray(cb)) Array.prototype.push.apply(this.onResize, cb);
-				else this.onResize.push(cb as ResizeListener);
-				break;
+				if (Array.isArray(cb)) {
+					Array.prototype.push.apply(this.onResize, cb);
+					return cb.map(callback => () => this.off(event, callback));
+				}
+				else {
+					this.onResize.push(cb as ResizeListener);
+					return () => this.off(event, cb);
+				}
 			default:
 				console.warn(`Cannot add listener, event '${event}' does not exist.`);
+				return null;
+		}
+	}
+
+	off(event: "render" | "resize", cb: RenderListener | ResizeListener) {
+		let i;
+		switch(event) {
+			case "render":
+				i = this.onRender.indexOf(cb as RenderListener);
+				if (i > -1) this.onRender.splice(i, 1);
+				else console.warn(`Cannot find listener to remove`);
+				break;
+			case "resize":
+				i = this.onResize.indexOf(cb as ResizeListener);
+				if (i > -1) this.onRender.splice(i, 1);
+				else console.warn(`Cannot find listener to remove`);
 				break;
 		}
 	}
